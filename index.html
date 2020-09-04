@@ -12,7 +12,7 @@
 </head>
 <body>
     <main>
-        <header id="header">
+        <header class="text-center text-white bg-dark" id="header">
             <h1>Weather Dashboard</h1>
         </header>
         <div class="col-12 col-md-4">
@@ -22,7 +22,7 @@
                 <button class="btn" onClick="searchCity()"><span class="oi oi-magnifying-glass"></span></button>
             </div>
             <div class="card" style="width: 18rem;">
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush list-unstyled">
                   <li class="list-group-item saved-search">Cras justo odio</li>
                 </ul>
             </div>
@@ -31,8 +31,9 @@
         <div class="col-12 col-md-8 containers">
             <div class="card border-dark mb-3" style="max-width: 90rem;">
                 <div class="card-body text-dark">
-                  <h5 class="card-title"></h5>
-                  <p class="card-text" id="location"><span id="currentDate"></span></p>
+                  <div class="card-title bg-light h3" id="current-date"></div>
+                  <h4 class="card-title" id="location"></h4>
+                  <!-- <img class="card-text" src="" id="weather-icon"></img> -->
                   <p class="card-text" id="weather-temp"></p>
                   <p class="card-text" id="humid-current"></p>
                   <p class="card-text" id="wind-current"></p>
@@ -41,7 +42,7 @@
             </div>
             <div class="card text-white bg-primary mb-3" style="max-width: 15rem;">
                 <div class="card-body" id="forecast">
-                  <h5 class="card-title">Forecast</h5>
+                  <h5 class="card-title" id="forecast-date"></h5>
                   <p class="card-text"></p>
                 </div>
             </div>

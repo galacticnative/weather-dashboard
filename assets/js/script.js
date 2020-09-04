@@ -13,9 +13,14 @@ var searchCity = function() {
         return response.json()
     }).then(function(data) {
         console.log(data);
-        document.getElementById("location").innerHTML = data.name;
+        document.getElementById("location").innerHTML = data.name 
 
         currentTemp(data);
+        currentHumid(data);
+        currentWind(data);
+        //weatherIcon(data); //need to link correct icon api key
+        //currentUv(data); need correct api key for UV
+        forecastData(data);
     }).catch(function(error) {
         console.log("Error, try again", error)
     });
@@ -26,10 +31,51 @@ var currentTemp = function(data) {
     var kelvin = data.main.temp 
     var celsius = kelvin - 273
     var fahrenheit = Math.floor(celsius * (9/5) + 32)
-    return document.getElementById("weather-temp").innerHTML = "Temperature: " + fahrenheit + " degrees F"
+    return document.getElementById("weather-temp").innerHTML = "Temperature: " + fahrenheit + " °F"
 }
 
-// var now = moment().format("MM/DD/YYYY");
-// document.getElementById("currentDate").innerHTML = now
+var currentHumid = function(data) {
+    var humidity = data.main.humidity
+    return document.getElementById("humid-current").innerHTML = "Humidity: " + humidity + "%"
+}
+
+var currentWind = function(data) {
+    var wind = data.wind.speed
+    return document.getElementById("wind-current").innerHTML = "Wind Speed: " + wind + "mph"
+}
+
+// var weatherIcon = function(data) {
+//     var iconEl = document.getElementById("weather-icon")
+//     iconEl.getAttribute("src")
+//     iconEl.innerHTML = "http://openweathermap.org/img/wn/" + data.weather.icon + "@2x.png"
+// }
+
+//NEED API KEY for UV 
+// var currentUv = function(data) {
+//     var apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499"
+//     var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q="
+//     var searchInput = document.getElementById("city-input").value; 
+
+//     fetch(apiUrl + searchInput + "&exclude=hourly,daily" + apiKey
+//     ).then(function(response) {
+//         return response.json()
+//     }).then(function(data) {
+//         console.log(data);
+//         document.getElementById("uv-current").innerHTML = data.uvi
+//     })
+// }
+
+var now = moment().format("MM/DD/YYYY");
+document.getElementById("current-date").innerHTML = now
+
+
+var forecastData = function(data) {
+    apiUrl = "api.openweathermap.org/data/2.5/forecast?q="
+    apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499"
+
+    var oneDay = new moment().add(1, 'day')
+    var forecastOne = document.getElementById("forecast-date")
+    forecastOne.innerHTML = oneDay.format("MM/DD/YYYY")
+}
         
 
