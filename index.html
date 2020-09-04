@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" />
+    <link rel="stylesheet" src="./assets/css/style.css" />
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <main>
+        <header id="header">
+            <h1>Weather Dashboard</h1>
+        </header>
+        <div class="col-12 col-md-4">
+            <div class="card">
+              <h3 class="card-header" id="city-search">Search for a City:</h3>
+                <input type="text" id="city-input" name="city-input"></input>
+                <button class="btn" onClick="searchCity()"><span class="oi oi-magnifying-glass"></span></button>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item saved-search">Cras justo odio</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-12 col-md-8 containers">
+            <div class="card border-dark mb-3" style="max-width: 90rem;">
+                <div class="card-body text-dark">
+                  <h5 class="card-title"></h5>
+                  <p class="card-text" id="location"><span id="currentDate"></span></p>
+                  <p class="card-text" id="weather-temp"></p>
+                  <p class="card-text" id="humid-current"></p>
+                  <p class="card-text" id="wind-current"></p>
+                  <p class="card-text" id="uv-current"></p>
+                </div>
+            </div>
+            <div class="card text-white bg-primary mb-3" style="max-width: 15rem;">
+                <div class="card-body" id="forecast">
+                  <h5 class="card-title">Forecast</h5>
+                  <p class="card-text"></p>
+                </div>
+            </div>
+            
+        </div>
+        
+    </main>
+
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
