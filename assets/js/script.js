@@ -78,6 +78,11 @@ var forecastData = function(data) {
 
     var oneDay = new moment().add(1, 'day')
     var oneDaySeconds = (Math.round(new Date().getTime() / 1000)) + 86400
+    
+    // var forecastDiv = document.getElementById("forecast")
+    // forecastDiv.className("card text-white bg-primary mb-3")
+    // forecastDiv.style("max-width: 15rem;")
+    
     var forecastOne = document.getElementById("forecast-date")
     forecastOne.innerHTML = oneDay.format("MM/DD/YYYY")
 

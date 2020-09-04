@@ -15,13 +15,13 @@
         <header class="text-center text-white bg-dark" id="header">
             <h1>Weather Dashboard</h1>
         </header>
-        <div class="col-12 col-md-4">
-            <div class="card">
+        <div class="col-12 col-md-4 flex-column">
+            <div class="card d-flex justify-content-start">
               <h3 class="card-header" id="city-search">Search for a City:</h3>
                 <input type="text" id="city-input" name="city-input"></input>
-                <button class="btn" onClick="searchCity()"><span class="oi oi-magnifying-glass"></span></button>
+                <button class="btn bg-primary text-white" onClick="searchCity()"><span class="oi oi-magnifying-glass"></span></button>
             </div>
-            <div class="card" style="width: 18rem;">
+            <div class="card card d-flex justify-content-start" style="width: 18rem;">
                 <ul class="list-group list-group-flush list-unstyled">
                   <li class="list-group-item saved-search">Cras justo odio</li>
                 </ul>
@@ -40,8 +40,8 @@
                   <p class="card-text" id="uv-current"></p>
                 </div>
             </div>
-            <div class="card text-white bg-primary mb-3" style="max-width: 15rem;">
-                <div class="card-body" id="forecast">
+            <div class="card text-white bg-primary mb-3" id="forecast" style="max-width: 15rem;">
+                <!-- <div class="card-body" id="forecast"> -->
                   <h5 class="card-title" id="forecast-date"></h5>
                   <p class="card-title" id="forecast-icon"></p>
                   <p class="card-text" id="forecast-temp"></p>
