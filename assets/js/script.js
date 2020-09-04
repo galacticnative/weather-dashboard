@@ -26,7 +26,7 @@ var searchCity = function() {
     });
 }
 
-//function to display current weather
+//function to display current TEMP
 var currentTemp = function(data) {
     var kelvin = data.main.temp 
     var celsius = kelvin - 273
@@ -34,11 +34,13 @@ var currentTemp = function(data) {
     return document.getElementById("weather-temp").innerHTML = "Temperature: " + fahrenheit + " °F"
 }
 
+//function to display current HUMIDITY
 var currentHumid = function(data) {
     var humidity = data.main.humidity
     return document.getElementById("humid-current").innerHTML = "Humidity: " + humidity + "%"
 }
 
+//function to display current WIND
 var currentWind = function(data) {
     var wind = data.wind.speed
     return document.getElementById("wind-current").innerHTML = "Wind Speed: " + wind + "mph"
@@ -70,12 +72,26 @@ document.getElementById("current-date").innerHTML = now
 
 
 var forecastData = function(data) {
-    apiUrl = "api.openweathermap.org/data/2.5/forecast?q="
+    apiUrl = "http://api.openweathermap.org/data/2.5/forecast?q="
     apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499"
+    var searchInput = document.getElementById("city-input").value;
 
     var oneDay = new moment().add(1, 'day')
+    var oneDaySeconds = (Math.round(new Date().getTime() / 1000)) + 86400
     var forecastOne = document.getElementById("forecast-date")
     forecastOne.innerHTML = oneDay.format("MM/DD/YYYY")
-}
-        
 
+    fetch(apiUrl + searchInput + apiKey).then(function(response) {
+        return response.json()
+    }).then(function(data) {
+        console.log(data)
+
+        if (oneDaySeconds === data.dt) {
+            var kelvin = data.main.temp 
+            var celsius = kelvin - 273
+            var fahrenheit = Math.floor(celsius * (9/5) + 32)
+            var forecastTemp = data.list.main.temp
+            return document.getElementById("forecast-temp").innerHTML = forecastTemp
+        }
+    })  
+}      
