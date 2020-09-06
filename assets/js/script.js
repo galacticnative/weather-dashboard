@@ -1,14 +1,15 @@
 var apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499"
-var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q="
+var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="
+var forecastContainerEl = document.querySelector("#forecasts");
 
 
 //function when the City entered button is clicked, will display weather data
 var searchCity = function() {
     var searchInput = document.getElementById("city-input").value; 
-    var apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499"
+    var apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499&units=imperial"
 
 
-    fetch("http://api.openweathermap.org/data/2.5/weather?q=" + searchInput + apiKey
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + apiKey
     ).then(function(response) {
         return response.json()
     }).then(function(data) {
@@ -18,7 +19,7 @@ var searchCity = function() {
         currentTemp(data);
         currentHumid(data);
         currentWind(data);
-        //weatherIcon(data); //need to link correct icon api key
+        weatherIcon(data); //need to link correct icon api key
         //currentUv(data); need correct api key for UV
         forecastData(data);
     }).catch(function(error) {
@@ -28,9 +29,7 @@ var searchCity = function() {
 
 //function to display current TEMP
 var currentTemp = function(data) {
-    var kelvin = data.main.temp 
-    var celsius = kelvin - 273
-    var fahrenheit = Math.floor(celsius * (9/5) + 32)
+    var fahrenheit = Math.round(data.main.temp)
     return document.getElementById("weather-temp").innerHTML = "Temperature: " + fahrenheit + " °F"
 }
 
@@ -46,11 +45,11 @@ var currentWind = function(data) {
     return document.getElementById("wind-current").innerHTML = "Wind Speed: " + wind + "mph"
 }
 
-// var weatherIcon = function(data) {
-//     var iconEl = document.getElementById("weather-icon")
-//     iconEl.getAttribute("src")
-//     iconEl.innerHTML = "http://openweathermap.org/img/wn/" + data.weather.icon + "@2x.png"
-// }
+var weatherIcon = function(data) {
+    var iconEl = document.getElementById("weather-icon")
+    var weatherIcon = data.weather[0].icon
+    iconEl.innerHTML = "http://openweathermap.org/img/wn/" + weatherIcon + ".png"
+}
 
 //NEED API KEY for UV 
 // var currentUv = function(data) {
@@ -70,33 +69,65 @@ var currentWind = function(data) {
 var now = moment().format("MM/DD/YYYY");
 document.getElementById("current-date").innerHTML = now
 
-
+//function to display 5 dayFORECAST
 var forecastData = function(data) {
-    apiUrl = "http://api.openweathermap.org/data/2.5/forecast?q="
-    apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499"
+    apiUrl = "https://api.openweathermap.org/data/2.5/forecast?q="
+    apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499&units=imperial"
     var searchInput = document.getElementById("city-input").value;
 
-    var oneDay = new moment().add(1, 'day')
-    var oneDaySeconds = (Math.round(new Date().getTime() / 1000)) + 86400
+    // var oneDay = new moment().add(1, "day");
+    // var twoDay = new moment().add(2, "day");
+    // var threeDay = new moment().add(3, "day");
+    // var fourDay = new moment().add(4, "day");
+    // var fiveDay = new moment().add(5, "day");
+    //var oneDaySeconds = (Math.round(new Date().getTime() / 1000)) + 86400
     
     // var forecastDiv = document.getElementById("forecast")
     // forecastDiv.className("card text-white bg-primary mb-3")
     // forecastDiv.style("max-width: 15rem;")
     
-    var forecastOne = document.getElementById("forecast-date")
-    forecastOne.innerHTML = oneDay.format("MM/DD/YYYY")
+    // var forecastOne = document.getElementById("forecast-date")
+    // forecastOne.innerHTML = oneDay.format("MM/DD/YYYY")
+    // var forecastTwo = document.getElementById("forecast-date1")
+    // forecastTwo.innerHTML = twoDay.format("MM/DD/YYYY")
 
     fetch(apiUrl + searchInput + apiKey).then(function(response) {
         return response.json()
     }).then(function(data) {
         console.log(data)
+        console.log(data.list)
+        //console.log(data.list[0])
 
-        if (oneDaySeconds === data.dt) {
-            var kelvin = data.main.temp 
-            var celsius = kelvin - 273
-            var fahrenheit = Math.floor(celsius * (9/5) + 32)
-            var forecastTemp = data.list.main.temp
-            return document.getElementById("forecast-temp").innerHTML = forecastTemp
+
+        // document.getElementById("forecast-temp").innerHTML = "Temperature: " + Math.round(data.list[0].main.temp) + " °F"
+        // document.getElementById("forecast-humid").innerHTML = "Humidity: " + data.list[0].main.humidity + "%"
+        
+        // console.log(data.list[8])
+
+        // document.getElementById("forecast-temp1").innerHTML = "Temperature: " + Math.round(data.list[8].main.temp) + " °F"
+        // document.getElementById("forecast-humid1").innerHTML = "Humidity: " + data.list[8].main.humidity + "%"
+
+        var forecastList = data.list
+        for (var i = 0; i < forecastList.length; i+=8) {
+
+        console.log([i])
+        var date = moment(forecastList[i].dt_txt).add(1, "d").format("MM/DD/YYYY")
+        var temp = Math.round(data.list[i].main.temp)
+        var humid = data.list[i].main.humidity
+        
+
+        var newDiv = document.createElement("div");
+        newDiv.innerHTML = "Temperature: " + temp + " °F"
+
+
+
+        forecastContainerEl.appendChild(newDiv)
+
+
+
+
+
+
         }
     })  
 }      
