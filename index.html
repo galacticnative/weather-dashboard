@@ -16,43 +16,33 @@
             <h1>Weather Dashboard</h1>
         </header>
         <div class="container-fluid">
-            <div class="col-12 col-md-4 m-0 container flex-column">
-                <div class="card d-flex justify-content-start">
-                <h3 class="card-header" id="city-search">Search for a City:</h3>
-                    <input type="text" id="city-input" name="city-input"></input>
-                    <button class="btn bg-primary text-white" onClick="searchCity()"><span class="oi oi-magnifying-glass"></span></button>
+            <div class="row">
+                <div class="col-12 col-md-4 m-0 container flex-column">
+                    <div class="card d-flex justify-content-start">
+                        <h3 class="card-header" id="city-search">Search for a City:</h3>
+                        <input type="text" id="city-input" name="city-input"></input>
+                        <button class="btn bg-primary text-white" onClick="searchCity()"><span class="oi oi-magnifying-glass"></span></button>
+                        <div id="saved-search"></div>
+                    </div>
                 </div>
-                <div class="card card d-flex justify-content-start" style="width: 18rem;">
-                    <ul class="list-group list-group-flush list-unstyled">
-                    <li class="list-group-item saved-search">Cras justo odio</li>
-                    </ul>
-                </div>
-            </div>
-        
-            <div class="col-12 col-md-8 m-0 container">
-                <div class="card border-dark mb-3" style="max-width: 90rem;">
-                    <div class="card-body text-dark">
-                    <div class="card-title bg-light h3" id="current-date"></div>
-                    <h4 class="card-title" id="location"></h4>
-                    <p class="card-text" id="weather-icon"></p>
-                    <p class="card-text" id="weather-temp"></p>
-                    <p class="card-text" id="humid-current"></p>
-                    <p class="card-text" id="wind-current"></p>
-                    <p class="card-text" id="uv-current"></p>
+            
+                <div class="col-12 col-md-8 m-0 container">
+                    <div class="card border-dark mb-3" style="max-width: 90rem;">
+                        <div class="card-body text-dark">
+                        <div class="card-title bg-light h3" id="current-date"></div>
+                        <h4 class="card-title" id="location"></h4>
+                        <p class="card-text" id="weather-icon"></p>
+                        <p class="card-text" id="weather-temp"></p>
+                        <p class="card-text" id="humid-current"></p>
+                        <p class="card-text" id="wind-current"></p>
+                        <p class="card-text" id="uv-current"></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <div>
-                <div class="col-12 col-md-3" id="forecasts">
-            
-                    <!-- <h5 class="card-title" id="forecast-date"></h5>
-                    <p class="card-title" id="forecast-icon"></p>
-                    <p class="card-text" id="forecast-temp"></p>
-                    <p class="card-text" id="forecast-humid"></p> -->
-                </div>
-                
+        
+            <div class="row">
+                <div class="d-inline-block col-12 col-md-2 m-0 justify-content-center" id="forecasts"></div>
             </div>
         </div>
         

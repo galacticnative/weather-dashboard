@@ -1,6 +1,7 @@
 var apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499"
 var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="
 var forecastContainerEl = document.querySelector("#forecasts");
+var searchInput = document.getElementById("city-input")
 
 
 //function when the City entered button is clicked, will display weather data
@@ -26,6 +27,14 @@ var searchCity = function() {
         console.log("Error, try again", error)
     });
 }
+
+
+var saveSearch = function(searchCity) {
+
+    localStorage.setItem("city", JSON.stringify(searchInput));
+}
+
+
 
 //function to display current TEMP
 var currentTemp = function(data) {
@@ -80,8 +89,8 @@ var currentUv = function(data) {
     })
 }
 
-var now = moment().format("MM/DD/YYYY");
-document.getElementById("current-date").innerHTML = now
+var now = moment().format("M/DD/YYYY");
+document.getElementById("current-date").innerHTML = "Today is: " + now
 
 //function to display 5 dayFORECAST
 var forecastData = function(data) {
@@ -96,7 +105,6 @@ var forecastData = function(data) {
         console.log(data.list)
         //console.log(data.list[0])
 
-        
 
         var forecastList = data.list
         for (var i = 0; i < forecastList.length; i+=8) {
@@ -105,26 +113,21 @@ var forecastData = function(data) {
             console.log(weatherIconImg)
             var iconUrl = "https://openweathermap.org/img/wn/" + weatherIconImg + "@2x.png"
 
-        console.log([i])
-        var date = moment(forecastList[i].dt_txt).add(1, "d").format("MM/DD/YYYY")
-        var temp = Math.round(data.list[i].main.temp)
-        var humid = data.list[i].main.humidity
+            console.log([i])
+            var date = moment(forecastList[i].dt_txt).add(1, "d").format("MM/DD/YYYY")
+            var temp = Math.round(data.list[i].main.temp)
+            var humid = data.list[i].main.humidity
         
 
-        var newDiv = document.createElement("div");
-        newDiv.setAttribute("class", "card text-white bg-primary mb-3")
-        newDiv.setAttribute("style", "max-width: 25rem; max-height: 30rem;")
-        newDiv.innerHTML = date + "<img src='" + iconUrl + "'>" + "<br>" + "Temp: " + temp + " °F" + "<br>" + "Humidity: " + humid + "%"
+            var newDiv = document.createElement("div");
+            newDiv.setAttribute("class", "card text-white bg-primary mb-3")
+        
+            newDiv.innerHTML = date + "<img src='" + iconUrl + "'>" + "<br>" + "Temp: " + temp + " °F" + "<br>" + "Humidity: " + humid + "%"
 
-
-
-        forecastContainerEl.appendChild(newDiv)
-
-
-
-
-
-
+            forecastContainerEl.appendChild(newDiv)
         }
     })  
-}      
+}  
+
+
+

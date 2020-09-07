@@ -12,4 +12,4 @@ Built and deployed by Brandi Curley
 ## Link to Webpage:
 https://galacticnative.github.io/weather-dashboard/
 
-
+![picture](./assets/images/weatherdashboard.png)
