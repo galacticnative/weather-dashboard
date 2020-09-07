@@ -7,8 +7,10 @@ var searchInput = document.getElementById("city-input")
 //function when the City entered button is clicked, will display weather data
 var searchCity = function() {
     var searchInput = document.getElementById("city-input").value; 
+    var cityKey = 0
     var apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499&units=imperial"
 
+    localStorage.setItem(cityKey, searchInput);
 
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + apiKey
     ).then(function(response) {
@@ -27,13 +29,6 @@ var searchCity = function() {
         console.log("Error, try again", error)
     });
 }
-
-
-var saveSearch = function(searchCity) {
-
-    localStorage.setItem("city", JSON.stringify(searchInput));
-}
-
 
 
 //function to display current TEMP
@@ -120,7 +115,7 @@ var forecastData = function(data) {
         
 
             var newDiv = document.createElement("div");
-            newDiv.setAttribute("class", "card text-white bg-primary mb-3")
+            newDiv.setAttribute("class", "text-dark bg-primary mb-3 mr-3 ml-3 border border-white rounded")
         
             newDiv.innerHTML = date + "<img src='" + iconUrl + "'>" + "<br>" + "Temp: " + temp + " °F" + "<br>" + "Humidity: " + humid + "%"
 
