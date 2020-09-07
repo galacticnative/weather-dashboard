@@ -47,8 +47,10 @@ var currentWind = function(data) {
 
 var weatherIcon = function(data) {
     var iconEl = document.getElementById("weather-icon")
-    var weatherIcon = data.weather[0].icon
-    iconEl.innerHTML = "<img src=\"https://openweathermap.org/img/wn/\" + weatherIcon + \"@2x.png/;SameSite=none;Secure\">"
+    var weatherIconImg = data.weather[0].icon
+    console.log(weatherIconImg)
+    var iconUrl = "https://openweathermap.org/img/wn/" + weatherIconImg + "@2x.png"
+    iconEl.innerHTML = "<img src='" + iconUrl + "'>"
 }
 
 //function to display CURRENT UV INDEX
