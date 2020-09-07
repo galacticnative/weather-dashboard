@@ -20,7 +20,7 @@ var searchCity = function() {
         currentHumid(data);
         currentWind(data);
         weatherIcon(data); //need to link correct icon api key
-        //currentUv(data); need correct api key for UV
+        currentUv(data); 
         forecastData(data);
     }).catch(function(error) {
         console.log("Error, try again", error)
@@ -48,23 +48,26 @@ var currentWind = function(data) {
 var weatherIcon = function(data) {
     var iconEl = document.getElementById("weather-icon")
     var weatherIcon = data.weather[0].icon
-    iconEl.innerHTML = "http://openweathermap.org/img/wn/" + weatherIcon + ".png"
+    iconEl.innerHTML = "<img src=\"https://openweathermap.org/img/wn/\" + weatherIcon + \"@2x.png/;SameSite=none;Secure\">"
 }
 
-//NEED API KEY for UV 
-// var currentUv = function(data) {
-//     var apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499"
-//     var apiUrl = "http://api.openweathermap.org/data/2.5/weather?q="
-//     var searchInput = document.getElementById("city-input").value; 
+//function to display CURRENT UV INDEX
+var currentUv = function(data) {
+    var apiKey = "a54d928deb07cd481fb394bc2e4e5499"
+    var apiUrl = "https://api.openweathermap.org/data/2.5/uvi?appid="
+    
+    var lat = data.coord.lat
+    var lon = data.coord.lon
 
-//     fetch(apiUrl + searchInput + "&exclude=hourly,daily" + apiKey
-//     ).then(function(response) {
-//         return response.json()
-//     }).then(function(data) {
-//         console.log(data);
-//         document.getElementById("uv-current").innerHTML = data.uvi
-//     })
-// }
+    fetch(apiUrl + apiKey + "&lat=" + lat + "&lon=" + lon
+    ).then(function(response) {
+        return response.json()
+    }).then(function(data) {
+        var uvCurrentEl = data.value
+
+        document.getElementById("uv-current").innerHTML = "UV Index: " + uvCurrentEl
+    })
+}
 
 var now = moment().format("MM/DD/YYYY");
 document.getElementById("current-date").innerHTML = now
@@ -117,7 +120,9 @@ var forecastData = function(data) {
         
 
         var newDiv = document.createElement("div");
-        newDiv.innerHTML = "Temperature: " + temp + " °F"
+        newDiv.setAttribute("class", "card text-white bg-primary mb-3")
+        newDiv.setAttribute("style", "max-width: 25rem; max-height: 30rem;")
+        newDiv.innerHTML = date + "<br>" + "Temp: " + temp + " °F" + "<br>" + "Humidity: " + humid + "%"
 
 
 
