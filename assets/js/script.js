@@ -19,7 +19,7 @@ var searchCity = function() {
         currentTemp(data);
         currentHumid(data);
         currentWind(data);
-        weatherIcon(data); //need to link correct icon api key
+        weatherIcon(data); 
         currentUv(data); 
         forecastData(data);
     }).catch(function(error) {
@@ -89,22 +89,6 @@ var forecastData = function(data) {
     apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499&units=imperial"
     var searchInput = document.getElementById("city-input").value;
 
-    // var oneDay = new moment().add(1, "day");
-    // var twoDay = new moment().add(2, "day");
-    // var threeDay = new moment().add(3, "day");
-    // var fourDay = new moment().add(4, "day");
-    // var fiveDay = new moment().add(5, "day");
-    //var oneDaySeconds = (Math.round(new Date().getTime() / 1000)) + 86400
-    
-    // var forecastDiv = document.getElementById("forecast")
-    // forecastDiv.className("card text-white bg-primary mb-3")
-    // forecastDiv.style("max-width: 15rem;")
-    
-    // var forecastOne = document.getElementById("forecast-date")
-    // forecastOne.innerHTML = oneDay.format("MM/DD/YYYY")
-    // var forecastTwo = document.getElementById("forecast-date1")
-    // forecastTwo.innerHTML = twoDay.format("MM/DD/YYYY")
-
     fetch(apiUrl + searchInput + apiKey).then(function(response) {
         return response.json()
     }).then(function(data) {
@@ -112,17 +96,14 @@ var forecastData = function(data) {
         console.log(data.list)
         //console.log(data.list[0])
 
-
-        // document.getElementById("forecast-temp").innerHTML = "Temperature: " + Math.round(data.list[0].main.temp) + " °F"
-        // document.getElementById("forecast-humid").innerHTML = "Humidity: " + data.list[0].main.humidity + "%"
         
-        // console.log(data.list[8])
-
-        // document.getElementById("forecast-temp1").innerHTML = "Temperature: " + Math.round(data.list[8].main.temp) + " °F"
-        // document.getElementById("forecast-humid1").innerHTML = "Humidity: " + data.list[8].main.humidity + "%"
 
         var forecastList = data.list
         for (var i = 0; i < forecastList.length; i+=8) {
+        
+            var weatherIconImg = data.list[i].weather[0].icon
+            console.log(weatherIconImg)
+            var iconUrl = "https://openweathermap.org/img/wn/" + weatherIconImg + "@2x.png"
 
         console.log([i])
         var date = moment(forecastList[i].dt_txt).add(1, "d").format("MM/DD/YYYY")
@@ -133,7 +114,7 @@ var forecastData = function(data) {
         var newDiv = document.createElement("div");
         newDiv.setAttribute("class", "card text-white bg-primary mb-3")
         newDiv.setAttribute("style", "max-width: 25rem; max-height: 30rem;")
-        newDiv.innerHTML = date + "<br>" + "Temp: " + temp + " °F" + "<br>" + "Humidity: " + humid + "%"
+        newDiv.innerHTML = date + "<img src='" + iconUrl + "'>" + "<br>" + "Temp: " + temp + " °F" + "<br>" + "Humidity: " + humid + "%"
 
 
 
