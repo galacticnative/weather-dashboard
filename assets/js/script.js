@@ -64,6 +64,15 @@ var currentUv = function(data) {
         return response.json()
     }).then(function(data) {
         var uvCurrentEl = data.value
+        var uvColor = document.getElementById("uv-current") 
+
+        if (uvCurrentEl >= 0 && uvCurrentEl < 3) {
+            uvColor.classList.add("bg-success");
+        } else if (uvCurrentEl >= 3 && uvCurrentEl < 7) {
+            uvColor.classList.add("bg-warning");
+        } else if (uvCurrentEl >= 7) {
+            uvColor.classList.add("bg-danger");
+        }
 
         document.getElementById("uv-current").innerHTML = "UV Index: " + uvCurrentEl
     })
