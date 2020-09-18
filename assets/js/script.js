@@ -2,15 +2,47 @@ var apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499"
 var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="
 var forecastContainerEl = document.querySelector("#forecasts");
 var searchInput = document.getElementById("city-input")
+var saveSearchEl = document.getElementById("saved-search")
+//var searchHistory = JSON.parse(localStorage.getItem("History")) || []
 
+// var displayHistory = function(){
+
+//     // empties the history of the div
+//     $("#saved-search").empty()
+
+//     for (var i = 0; i < searchHistory.length; i++){
+
+//         var historyButton = $("<button>");
+//         historyButton.text(searchHistory[i]);
+//         $('#saved-search').append(historyButton);
+//         historyButton.click(function(){
+//             var textContent = this.textContent;
+//             searchCity(textContent);
+//         })
+//     }
+// }
+
+// var saveHistory = function(searchInput) {
+//     searchHistory.unshift(searchInput);
+//     localStorage.setItem("History", JSON.stringify(searchHistory)) 
+// }
 
 //function when the City entered button is clicked, will display weather data
 var searchCity = function() {
     var searchInput = document.getElementById("city-input").value; 
-    var cityKey = 0
     var apiKey = "&appid=a54d928deb07cd481fb394bc2e4e5499&units=imperial"
 
-    localStorage.setItem(cityKey, searchInput);
+    //$(forecastContainerEl).empty();
+
+    var forecastList = document.getElementById("forecasts")
+    while (forecastList.firstChild) {
+        forecastList.removeChild(forecastList.firstChild)
+    }
+
+    var newHeader = document.createElement("p")
+        newHeader.setAttribute("class", "text-body")
+        newHeader.innerHTML = "<h3>" + "5-day Forecast: " + "<h3>"
+        forecastContainerEl.appendChild(newHeader);
 
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + apiKey
     ).then(function(response) {
@@ -25,6 +57,8 @@ var searchCity = function() {
         weatherIcon(data); 
         currentUv(data); 
         forecastData(data);
+        // saveHistory(searchInput);
+        // displayHistory(searchInput);
     }).catch(function(error) {
         console.log("Error, try again", error)
     });
@@ -116,10 +150,10 @@ var forecastData = function(data) {
 
             var newDiv = document.createElement("div");
             newDiv.setAttribute("class", "text-dark bg-primary mb-3 mr-3 ml-3 border border-white rounded")
-        
             newDiv.innerHTML = date + "<img src='" + iconUrl + "'>" + "<br>" + "Temp: " + temp + " °F" + "<br>" + "Humidity: " + humid + "%"
-
             forecastContainerEl.appendChild(newDiv)
+
+
         }
     })  
 }  
